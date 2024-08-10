@@ -22,6 +22,9 @@ public class AccountService {
         }
         return null;
     }
+    public Account getAccountByUsername(String username){
+        return accountRepository.findAccountByUsername(username);
+    }
 
     public Account loginAccount(Account account){
         Account existingAccount = accountRepository.findAccountByUsernameAndPassword(account.getUsername(), account.getPassword());
