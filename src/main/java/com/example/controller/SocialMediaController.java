@@ -39,11 +39,10 @@ public class SocialMediaController {
     }
 
     @PostMapping("register")
-    public ResponseEntity<Account> registerAccount(@RequestBody Account account){
-        Account registeredAccount;
+    public ResponseEntity<Account> registerAccount(@RequestBody Account account){        
         Account existingAccount = accountService.getAccountByUsername(account.getUsername());
         if (existingAccount == null){
-            registeredAccount = accountService.registerAccount(account);
+            Account  registeredAccount = accountService.registerAccount(account);
             
             if (registeredAccount == null){
                 return ResponseEntity.status(400).body(null);
@@ -52,7 +51,7 @@ public class SocialMediaController {
             }
         } 
 
-        return null;
+        return ResponseEntity.status(409).body(null);
     }
 
     @PostMapping("login")
@@ -88,7 +87,10 @@ public class SocialMediaController {
     @DeleteMapping("messages/{message_id}")
     public ResponseEntity<Integer> deleteMessageByMessageId(@PathVariable Integer message_id){
         Integer affectedRows = messageService.deleteByMessageID(message_id);
-        return ResponseEntity.ok(affectedRows);
+        if (affectedRows> 0){
+            return ResponseEntity.ok(affectedRows);
+        }
+        return ResponseEntity.ok(null);
     }
 
     @PatchMapping("messages/{message_id}")
@@ -98,7 +100,7 @@ public class SocialMediaController {
         if (rowsAffected >0){
             return ResponseEntity.ok(rowsAffected);
         }
-        return ResponseEntity.status(401).body(null);
+        return ResponseEntity.status(400).body(null);
     }
 
     @GetMapping("accounts/{account_id}/messages")

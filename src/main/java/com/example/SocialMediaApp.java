@@ -34,11 +34,11 @@ public class SocialMediaApp {
      * @throws InterruptedException 
      */
     public static void main(String[] args) throws InterruptedException {
-        ApplicationContext context = SpringApplication.run(SocialMediaApp.class, args);
-       
+        ApplicationContext context = SpringApplication.run(SocialMediaApp.class, args);  
 
-
-
+        MessageService messageService = context.getBean(MessageService.class);
+        Integer rowsAffectd =  messageService.deleteByMessageID(2);
+        System.out.println(rowsAffectd);
         
 
 
