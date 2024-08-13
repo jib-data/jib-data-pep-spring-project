@@ -2,6 +2,8 @@ package com.example.service;
 
 // import org.hibernate.mapping.List;
 import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,7 @@ import com.example.entity.Account;
 import com.example.entity.Message;
 import com.example.repository.AccountRepository;
 import com.example.repository.MessageRepository;
+
 
 @Service
 public class MessageService {
@@ -36,9 +39,12 @@ public class MessageService {
     }
 
     public Message getMessageByMessageID(Integer messageID){
-        Message existingMessage = messageRepository.findById(messageID).orElse(null);
-        return existingMessage;
+        Message existingMessage =
+         messageRepository.findById(messageID).orElse(null);
+        
+         return existingMessage;
     }
+
 
     public Integer deleteByMessageID(Integer messageID){
         return messageRepository.deleteByMessageID(messageID);        
